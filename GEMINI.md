@@ -241,3 +241,15 @@ Sample code is aggregated visually in the UI via the Samples section, but the ph
 
 1.  **File Size Limits:** Never add files larger than 24MB to the `docs/` directory.
 
+
+## Capability verification
+
+Before claiming that GitHub or another connected service is unavailable:
+
+1. Distinguish connector access, target-resource authorization, local CLI authentication, and local workspace state.
+2. Discover the relevant connected tool and call a harmless read-only operation.
+3. For GitHub, verify the authenticated identity and access to the specifically requested repository.
+4. Separately check whether the current directory is a Git checkout and whether it has a remote.
+5. Never interpret `not a git repository`, a missing remote, or an unavailable local CLI as proof that the GitHub connector is unavailable.
+6. If a check fails, report the exact tool or command, failing layer, and raw error.
+7. If any authorized route works, use it to continue the task instead of refusing.
